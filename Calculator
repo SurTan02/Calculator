@@ -1,0 +1,23 @@
+int main(){
+	int N;
+	scanf("%d", &N);
+	int year;
+	const char *hasil[N];
+
+	for (int i =0; i<N; i++){
+		scanf("%d", &year);
+			if (((year % 4 == 0) && (year % 100!=0)) || (year % 400 ==0)){
+				hasil[i]= "Leap Year\n";
+			}
+			else{
+				hasil[i]= "Not a Leap Year\n";
+			}
+	
+	}		
+	
+	for (int i =0; i<N; i++){
+		printf(hasil[i]);
+	}
+	
+	
+}
