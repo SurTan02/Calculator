@@ -1,23 +1,108 @@
-int main(){
-	int N;
-	scanf("%d", &N);
-	int year;
-	const char *hasil[N];
+#include <stdio.h>
+#include<math.h>
 
-	for (int i =0; i<N; i++){
-		scanf("%d", &year);
-			if (((year % 4 == 0) && (year % 100!=0)) || (year % 400 ==0)){
-				hasil[i]= "Leap Year\n";
-			}
-			else{
-				hasil[i]= "Not a Leap Year\n";
-			}
+double NilaiA,NilaiB,NilaiC;
+	/*fungsi untuk di integralkan*/
+		double f(double x){				
+		return NilaiA*x*x+NilaiB*x +NilaiC;
+					}
+					
+					
+	/*fungsi untuk melakukan pendekatan trapesium*/
+	double hitung(double f(double x),double bawah, double atas, int n){
+	/*Kamus Lokal*/
+	double x,h,sum=0,integral,a,b,c;
+	int i;
 	
-	}		
-	
-	for (int i =0; i<N; i++){
-		printf(hasil[i]);
-	}
-	
-	
+		h=fabs(atas-bawah)/n;		//Fabs = mutlak, h adalah perbedaan dari x1 ke x2....
+		for (i=1;i<n;i++){
+		x=bawah+i*h;				//misal h=0.5.  x1=1 x2=1.5 x3=2
+		sum=sum+f(x);				//menghitung f(1) +f(1.5) +f(3)+.....
+		}
+	integral=(h/2)*(f(bawah)+f(atas)+2*sum);  //sesuai rumus untuk mencari integral dengan pendekatan trapesiumsssssssss
+	return integral;
 }
+
+
+
+
+
+	/*function untuk menghasilkan hasil pangkat*/
+	float pangkat(float basis, float angka)	{
+   /* Kamus Lokal  */
+   	float hasil;
+   	hasil =1;
+ 
+   	for(int i = 1; i<=angka; i++){		
+					hasil = hasil*basis;}
+   	return hasil; 
+}
+	
+int main(){
+	float X,Y,hasil;
+	char tanda;
+	int pilihan;
+	
+	printf("Pilih Jenis Kalkulator\n 1. Kalkulator biasa \n 2. Kalkulator Integral\n");
+	scanf("%d", &pilihan);
+	//ASUMSI USER TIDAK MEMILIH SELAIN 1 ATAU 2
+		if (pilihan ==1){				//Kalkulator biasa
+		
+			printf("Masukkan bilangan pertama ");
+			scanf("%f", &X);
+			printf("Masukkan tanda (+,-,/,*,^) ");		
+			scanf(" %c", &tanda);
+			printf("Masukkan bilangan kedua ");
+			scanf("%f", &Y);
+			
+			
+			if (tanda == '+'){
+				printf("Penjumlahan %f dan %f adalah %f", X,Y,X+Y);}
+			else if (tanda == '-'){
+				printf("Pengurangan %f oleh %f adalah %f", X,Y,X-Y);}
+			else if (tanda == '*'){
+				printf("Perkalian %f dan %f adalah %f", X,Y,X*Y);}
+			else if (tanda == '/'){
+				printf("Pembagian %f oleh %f adalah %f", X,Y,X/Y);}
+			else if (tanda == '^'){
+				printf("%f pangkat %f adalah %f", X,Y,pangkat(X,Y));}}		//Akan memanggil fungsi pangkat
+				
+				
+		if (pilihan ==2){					//Kalkulator Integral
+			int n,i=2;
+			double h,sum=0,integral,bAwal,bAkhir,IntNew;
+			 
+			/*Input user*/
+			printf("\n Persamaan yang akan diintegrasikan (ax^2 +bx +c)");
+			//a.b.c untuk menyusun persamaan (disini digunakan persamaan orde 2)
+			printf("\nNilai a ");			
+			scanf("%lf",&NilaiA);
+			
+			printf("\nNilai b ");
+			scanf("%lf",&NilaiB);
+			
+			printf("\nNilai c ");
+			scanf("%lf",&NilaiC);
+						
+			printf("\nInput nilai batas bawah ");
+			scanf("%lf",&bAwal);
+			printf("\nInput nilai batas atas ");
+			scanf("%lf",&bAkhir);
+			
+			do{
+				//dilakukan pengulangan untuk mencari nilai integral
+			    integral=IntNew;
+			    i++;
+			    IntNew=hitung(f,bAwal,bAkhir,i);
+			  }while(fabs(IntNew-integral)>=0.0000000000000000001);		
+			  //digunakan selisih IntNew dan integral sekecil itu agar mendapat hasil yang lebih presisi	
+			
+			printf("\nHasil integral %lfx^2 + %lfx +%lf dari %lf sampai %lf= %lf", NilaiA,NilaiB,NilaiC,bAwal,bAkhir,IntNew);
+		
+		}
+}
+
+	
+
+	
+	
