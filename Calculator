@@ -2,7 +2,8 @@
 #include<math.h>
 
 double NilaiA,NilaiB,NilaiC;
-	/*fungsi untuk di integralkan*/
+
+	/*fungsi untuk di integralkan*/			//Misalnya a=3 b=2 c=1 (3x^2 +2x +1)
 		double f(double x){				
 		return NilaiA*x*x+NilaiB*x +NilaiC;
 					}
@@ -101,6 +102,8 @@ int main(){
 		
 		}
 }
+
+
 
 	
 
